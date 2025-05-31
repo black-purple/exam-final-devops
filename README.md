@@ -1,6 +1,6 @@
 # Analyseur de Fichiers Journaux (Log Analyzer)
 
-**Auteur :** [Votre Nom/Pseudo Ici]
+**Auteur :** Abderrahman DAKIR ALLAH
 
 ## Description
 
