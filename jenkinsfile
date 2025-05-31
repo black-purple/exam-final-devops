@@ -1,0 +1,25 @@
+// Jenkinsfile
+pipeline {
+    agent any
+
+    stages {
+        stage('Start') {
+            steps {
+                echo 'Début de l\'analyse des logs' //
+            }
+        }
+        stage('Analyze') {
+            steps {
+                // Adapté pour le projet Node.js
+                echo 'Installation des dépendances et analyse...'
+                sh 'pnpm install'
+                sh 'node ./cli.js' //
+            }
+        }
+        stage('End') {
+            steps {
+                echo 'Fin de la pipeline' //
+            }
+        }
+    }
+}
