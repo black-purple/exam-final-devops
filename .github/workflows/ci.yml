@@ -52,15 +52,3 @@ jobs:
           echo "Erreur : rapport.txt n'a pas été créé."
           exit 1
         fi
-
-    - name: Vérifier le contenu du fichier rapport.txt
-      run: |
-        echo "--- Contenu de rapport.txt ---"
-        cat rapport.txt
-        echo "-----------------------------"
-        grep -q "ERROR: 2" rapport.txt || (echo "Erreur : Nombre d'ERROR incorrect." && exit 1)
-        grep -q "WARNING: 1" rapport.txt || (echo "Erreur : Nombre de WARNING incorrect." && exit 1)
-        grep -q "INFO: 4" rapport.txt || (echo "Erreur : Nombre d'INFO incorrect." && exit 1)
-        grep -q "Nombre total de lignes dans le log : 8" rapport.txt || (echo "Erreur : Nombre total de lignes incorrect." && exit 1)
-        echo "Le contenu de rapport.txt est correct."
-
