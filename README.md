@@ -105,6 +105,8 @@ Une fois l'installation terminée, vous pouvez utiliser la commande `analyze-log
     ```
     Le fichier `rapport_analyse.txt` sera généré à l'intérieur du dossier spécifié.
 
+    -----
+    Le fichier `log.txt` dans ce depot peut etre utiliser pour tester l'outil.
 ## Dépannage
 
 * **Commande `analyze-logs` non trouvée :**
