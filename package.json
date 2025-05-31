@@ -1,0 +1,22 @@
+{
+  "name": "log-analyzer-cli",
+  "version": "1.0.0",
+  "description": "Un outil CLI pour compter les fichiers par extension dans un dossier.",
+  "main": "main.js",
+  "bin": {
+    "analyze-logs": "./cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "nodejs",
+    "logs",
+    "analyzer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
