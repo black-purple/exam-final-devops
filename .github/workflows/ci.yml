@@ -1,1 +1,66 @@
-# Github Action
+name: Node.js CI for Log Analyzer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+
+    - name: Configuration de Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Installation des dépendances (si vous en avez dans package.json)
+      run: npm install
+
+    - name: Rendre le script CLI exécutable
+      run: chmod +x cli.js
+
+    - name: Créer un fichier log.txt de test
+      run: |
+        echo "INFO: Démarrage du serveur." > log.txt
+        echo "WARNING: Espace disque faible." >> log.txt
+        echo "ERROR: Connexion à la base de données échouée." >> log.txt
+        echo "INFO: Authentification utilisateur réussie." >> log.txt
+        echo "ERROR: Erreur critique du système." >> log.txt
+        echo "INFO: Traitement des données terminé." >> log.txt
+        echo "DEBUG: Ceci est une ligne de débogage et ne devrait pas être comptée comme INFO, WARNING ou ERROR directement." >> log.txt
+        echo "ANOTHER INFO LINE" >> log.txt
+
+    - name: Exécuter l'analyseur de logs sur le dossier courant
+      run: node ./cli.js
+
+    - name: Vérifier la création du fichier rapport.txt
+      run: |
+        if [ -f rapport.txt ]; then
+          echo "rapport.txt a été créé avec succès."
+        else
+          echo "Erreur : rapport.txt n'a pas été créé."
+          exit 1
+        fi
+
+    - name: Vérifier le contenu du fichier rapport.txt
+      run: |
+        echo "--- Contenu de rapport.txt ---"
+        cat rapport.txt
+        echo "-----------------------------"
+        grep -q "ERROR: 2" rapport.txt || (echo "Erreur : Nombre d'ERROR incorrect." && exit 1)
+        grep -q "WARNING: 1" rapport.txt || (echo "Erreur : Nombre de WARNING incorrect." && exit 1)
+        grep -q "INFO: 4" rapport.txt || (echo "Erreur : Nombre d'INFO incorrect." && exit 1)
+        grep -q "Nombre total de lignes dans le log : 8" rapport.txt || (echo "Erreur : Nombre total de lignes incorrect." && exit 1)
+        echo "Le contenu de rapport.txt est correct."
+
