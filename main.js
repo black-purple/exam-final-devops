@@ -1,6 +1,6 @@
 // main.js
-import { access, readFile, writeFile } from 'fs/promises';
-import { join } from 'path';
+import { access, readFile, writeFile } from 'node:fs/promises'; // Using node: prefix
+import { join } from 'node:path'; // Using node: prefix
 
 /**
  * Analyse un fichier log.txt dans un dossier donné, compte les occurrences
@@ -30,7 +30,7 @@ export async function analyzeLogFile(directoryPath, outputFileName = 'rapport.tx
             ERROR: 0,
             WARNING: 0,
             INFO: 0,
-            TOTAL_LINES: lines.length,
+            TOTAL_LINES: lines.filter(line => line.trim() !== '').length, // Compte les lignes non vides
         };
 
         // Parcourir chaque ligne pour compter les occurrences
@@ -41,6 +41,10 @@ export async function analyzeLogFile(directoryPath, outputFileName = 'rapport.tx
             if (line.includes('WARNING')) {
                 counts.WARNING++;
             }
+            // S'assurer que "INFO" n'est pas compté s'il fait partie de "INFORMATION" par exemple,
+            // ou pour éviter de compter INFO dans une ligne qui est aussi ERROR ou WARNING.
+            // Pour une logique plus stricte, on pourrait utiliser des regex : /^INFO:/ ou /\bINFO\b/
+            // Pour l'instant, on garde la logique simple d'inclusion.
             if (line.includes('INFO')) {
                 counts.INFO++;
             }
@@ -51,7 +55,7 @@ export async function analyzeLogFile(directoryPath, outputFileName = 'rapport.tx
         reportContent += '=====================================\n\n';
         reportContent += `Fichier analysé : ${logFilePath}\n`;
         reportContent += `Date de l'analyse : ${new Date().toLocaleString()}\n`;
-        reportContent += `Nombre total de lignes dans le log : ${counts.TOTAL_LINES}\n\n`;
+        reportContent += `Nombre total de lignes non vides dans le log : ${counts.TOTAL_LINES}\n\n`;
         reportContent += 'Statistiques des types de log :\n';
         reportContent += `- ERROR: ${counts.ERROR}\n`;
         reportContent += `- WARNING: ${counts.WARNING}\n`;

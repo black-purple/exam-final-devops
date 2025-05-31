@@ -1,0 +1,21 @@
+INFO: Application [AuthService] démarrée avec succès sur le port 8080.
+WARNING: [AuthService] Connexion à la base de données Redis lente : 150ms.
+INFO: [UserService] Utilisateur 'admin' connecté depuis 192.168.1.10.
+ERROR: [PaymentService] Échec du traitement du paiement pour la commande C10023 avec l'erreur : Fonds insuffisants (Code: 5001).
+INFO: [OrderService] Nouvelle commande O5567 reçue de l'utilisateur 'john.doe'.
+INFO: [NotificationService] Notification envoyée à john.doe@example.com pour la commande O5567.
+WARNING: [APIGateway] Latence élevée détectée pour le service [PaymentService] : 2500ms.
+INFO: [UserService] Profil de l'utilisateur 'jane.doe' mis à jour.
+ERROR: [AuthService] Tentative de connexion échouée pour l'utilisateur 'unknown_user' depuis 10.0.0.5 - Mot de passe incorrect.
+INFO: [OrderService] Commande O5568 expédiée.
+DEBUG: [PaymentService] Vérification du statut du webhook pour Stripe.
+INFO: [DataBackupService] Sauvegarde quotidienne des données terminée.
+WARNING: [AuthService] Le certificat SSL pour auth.example.com expirera dans 15 jours.
+ERROR: [OrderService] Impossible de récupérer les détails du produit P0045 : Produit non trouvé en base de données.
+INFO: [UserService] Déconnexion de l'utilisateur 'admin'.
+INFO: [APIGateway] Requête GET /api/products traitée en 55ms.
+ERROR: [NotificationService] Échec de l'envoi de l'email à support@example.com : SMTP connection timeout.
+INFO: [AuthService] Session expirée pour l'utilisateur 'guest123'.
+
+INFO: [OrderService] Traitement du remboursement pour la commande R0012.
+WARNING: [UserService] Espace disque faible sur le serveur USR-02. 88% utilisé.
